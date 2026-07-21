@@ -1,0 +1,43 @@
+/* 全局主题变量（栗子/糖炒色调） */
+page {
+  --color-primary: #8B4513;    /* 栗子棕红（主色） */
+  --color-secondary: #D2691E;  /* 糖炒橙（辅色） */
+  --color-bg: #F5F0EB;         /* 暖白背景 */
+  background-color: var(--color-bg);
+  color: #333333;
+  font-size: 28rpx;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+view {
+  box-sizing: border-box;
+}
+
+/* 价格文字 */
+.price {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* 通用主按钮 */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 8rpx;
+  padding: 20rpx 32rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.btn-primary:active {
+  opacity: 0.85;
+}
+
+/* 通用卡片 */
+.card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}

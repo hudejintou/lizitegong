@@ -1,9 +1,5 @@
 {
-  "description": "项目配置文件",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
+  "description": "栗子特供小程序",
   "setting": {
     "urlCheck": false,
     "es6": true,
@@ -11,11 +7,30 @@
     "postcss": true,
     "minified": true,
     "newFeature": false,
-    "bigPackageSizeSupport": true
+    "bigPackageSizeSupport": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "coverView": false,
+    "showShadowRootInWxmlPanel": false,
+    "packNpmRelationList": [],
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.0.0",
-  "appid": "touristappid",
-  "projectname": "lizi",
-  "miniprogramRoot": "./"
+  "appid": "wx006c2225cebc17ad",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "condition": {},
+  "srcMiniprogramRoot": "miniprogram/",
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "libVersion": "3.17.0",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  }
 }

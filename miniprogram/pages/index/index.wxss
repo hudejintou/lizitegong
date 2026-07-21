@@ -1,0 +1,12 @@
+.page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  padding: 32rpx;
+}
+
+.placeholder {
+  color: #999999;
+  font-size: 28rpx;
+  text-align: center;
+  margin-top: 200rpx;
+}
