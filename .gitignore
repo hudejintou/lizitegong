@@ -1,0 +1,20 @@
+# WeChat DevTools 私有配置（含 appid，勿提交）
+project.private.config.json
+
+# 小程序 npm 构建产物
+miniprogram_npm/
+
+# 依赖
+node_modules/
+
+# 云函数本地依赖（部署时云端安装）
+cloudfunctions/**/node_modules/
+
+# 操作系统 / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 日志
+*.log

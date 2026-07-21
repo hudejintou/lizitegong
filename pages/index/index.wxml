@@ -1,0 +1,5 @@
+<view class="container">
+  <view class="title">欢迎使用小程序</view>
+  <button type="primary" bindtap="onTap">点击测试</button>
+  <view class="tip">{{message}}</view>
+</view>
