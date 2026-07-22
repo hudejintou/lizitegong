@@ -1,3 +1,55 @@
-<view class="page">
-  <view class="placeholder">商品详情页（待任务 4 填充）</view>
+<view class="page" wx:if="{{!loading && product}}">
+  <!-- 图片轮播 -->
+  <swiper class="gallery" indicator-dots autoplay circular indicator-active-color="#8B4513">
+    <swiper-item wx:for="{{images}}" wx:key="*this">
+      <image class="gallery-image" src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+    <swiper-item wx:if="{{images.length === 0}}">
+      <view class="gallery-image placeholder">暂无图片</view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 商品信息 -->
+  <view class="info card">
+    <view class="name">{{product.name}}</view>
+    <view class="desc">{{product.description}}</view>
+  </view>
+
+  <!-- 规格选择 -->
+  <view class="spec card">
+    <view class="section-title">规格</view>
+    <view class="spec-list">
+      <view class="spec-item {{activeSpecIndex === index ? 'active' : ''}}"
+            wx:for="{{product.specs}}" wx:key="specName"
+            data-index="{{index}}"
+            bindtap="onSpecTap">
+        <view class="spec-tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        <view class="spec-name">{{item.specName}}</view>
+        <view class="spec-price">¥{{item.price}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 数量步进器 -->
+  <view class="qty card">
+    <view class="section-title">数量</view>
+    <view class="stepper">
+      <view class="step-btn" bindtap="onMinus">−</view>
+      <view class="step-num">{{quantity}}</view>
+      <view class="step-btn" bindtap="onPlus">+</view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="footer">
+    <view class="subtotal">合计 <text class="price">¥{{subtotal}}</text></view>
+    <view class="actions">
+      <view class="btn-add" bindtap="onAddToCart">加入清单</view>
+      <view class="btn-checkout" bindtap="onAddAndCheckout">加入并去结算</view>
+    </view>
+  </view>
+</view>
+
+<view class="loading" wx:if="{{loading}}">
+  <text>加载中...</text>
 </view>
