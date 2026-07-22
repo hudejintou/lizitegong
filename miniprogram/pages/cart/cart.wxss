@@ -1,11 +1,163 @@
 .page {
   min-height: 100vh;
   background-color: var(--color-bg);
-  padding: 32rpx;
+  padding-bottom: 160rpx;
 }
-.placeholder {
+
+.list {
+  padding: 16rpx;
+}
+
+.item {
+  display: flex;
+  align-items: stretch;
+  padding: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.item-image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+}
+
+.item-image.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eeeeee;
+  color: #999999;
+  font-size: 22rpx;
+}
+
+.item-main {
+  flex: 1;
+  margin-left: 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.item-name {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.item-spec {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #666666;
+  background-color: #f5f0eb;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.spec-arrow {
+  color: var(--color-primary);
+}
+
+.item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+
+.item-price {
+  font-size: 30rpx;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+}
+
+.step-btn {
+  width: 56rpx;
+  height: 56rpx;
+  line-height: 52rpx;
+  text-align: center;
+  border: 2rpx solid #dddddd;
+  font-size: 32rpx;
+  color: #333333;
+}
+
+.step-num {
+  width: 72rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.item-remove {
+  width: 48rpx;
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 32rpx;
+  flex-shrink: 0;
+}
+
+.empty {
+  padding-top: 200rpx;
+  text-align: center;
+}
+
+.empty-text {
   color: #999999;
   font-size: 28rpx;
-  text-align: center;
-  margin-top: 200rpx;
+}
+
+.remark {
+  margin: 16rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+}
+
+.remark-input {
+  width: 100%;
+  height: 120rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  background-color: #ffffff;
+  border-top: 1rpx solid #eeeeee;
+}
+
+.total {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.total .price {
+  font-size: 36rpx;
+}
+
+.btn-generate {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 20rpx 48rpx;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+}
+
+.btn-generate.disabled {
+  background-color: #cccccc;
 }

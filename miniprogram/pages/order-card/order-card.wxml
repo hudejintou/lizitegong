@@ -1,3 +1,15 @@
 <view class="page">
-  <view class="placeholder">订单卡片生成页（待任务 8 填充）</view>
+  <view class="loading" wx:if="{{loading}}"><text>生成中...</text></view>
+
+  <view class="preview" wx:if="{{!loading}}">
+    <image wx:if="{{previewImage}}" class="preview-image" src="{{previewImage}}" mode="widthFix" />
+  </view>
+
+  <!-- 离屏画布，仅用于导出，不展示 -->
+  <canvas type="2d" id="orderCanvas" class="order-canvas"></canvas>
+
+  <view class="actions" wx:if="{{!loading}}">
+    <view class="btn-save" bindtap="onSaveAlbum">保存到相册</view>
+    <view class="btn-copy" bindtap="onCopyText">一键复制文字版清单</view>
+  </view>
 </view>

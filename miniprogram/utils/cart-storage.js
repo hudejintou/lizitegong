@@ -19,7 +19,10 @@ const addItem = (item) => {
   if (idx >= 0) {
     cart[idx].quantity += item.quantity
   } else {
-    cart.push(item)
+    const newItem = Object.assign({}, item, {
+      id: `${item.productId}__${item.specName}`
+    })
+    cart.push(newItem)
   }
   wx.setStorageSync(CART_KEY, cart)
   return cart

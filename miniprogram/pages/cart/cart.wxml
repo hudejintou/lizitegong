@@ -1,3 +1,43 @@
 <view class="page">
-  <view class="placeholder">选品清单页（待任务 6 填充）</view>
+  <!-- 商品列表 -->
+  <view class="list" wx:if="{{!isEmpty}}">
+    <view class="item card" wx:for="{{items}}" wx:key="id">
+      <image class="item-image" src="{{item.image}}" mode="aspectFill" wx:if="{{item.image}}" />
+      <view class="item-image placeholder" wx:else>无图</view>
+      <view class="item-main">
+        <view class="item-name">{{item.productName}}</view>
+        <view class="item-spec" bindtap="onSwitchSpec" data-productid="{{item.productId}}" data-specname="{{item.specName}}">
+          {{item.specName}} <text class="spec-arrow">▾</text>
+        </view>
+        <view class="item-bottom">
+          <view class="item-price price">¥{{item.price}}</view>
+          <view class="stepper">
+            <view class="step-btn" bindtap="onMinus" data-productid="{{item.productId}}" data-specname="{{item.specName}}">−</view>
+            <view class="step-num">{{item.quantity}}</view>
+            <view class="step-btn" bindtap="onPlus" data-productid="{{item.productId}}" data-specname="{{item.specName}}">+</view>
+          </view>
+        </view>
+      </view>
+      <view class="item-remove" bindtap="onRemove" data-productid="{{item.productId}}" data-specname="{{item.specName}}">✕</view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{isEmpty}}">
+    <text class="empty-text">清单为空，请先去选购商品</text>
+  </view>
+
+  <!-- 备注 -->
+  <view class="remark card" wx:if="{{!isEmpty}}">
+    <view class="section-title">备注</view>
+    <textarea class="remark-input" placeholder="给店主的留言（选填）" value="{{remark}}" bindinput="onRemarkInput" />
+  </view>
+
+  <!-- 底部结算栏 -->
+  <view class="footer">
+    <view class="total" wx:if="{{!isEmpty}}">合计 <text class="price">¥{{totalAmount}}</text></view>
+    <view class="btn-generate {{isEmpty ? 'disabled' : ''}}" bindtap="onGenerateOrder">
+      {{isEmpty ? '请先选购商品' : '生成订单'}}
+    </view>
+  </view>
 </view>

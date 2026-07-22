@@ -36,9 +36,10 @@ Page({
         }
         const specs = product.specs || []
         const first = specs[0] || null
+        const rawImages = product.images || []
         this.setData({
           product,
-          images: product.images || [],
+          images: rawImages,
           activeSpecIndex: specs.length > 0 ? 0 : -1,
           specName: first ? first.specName : '',
           price: first ? first.price : 0,
@@ -46,14 +47,37 @@ Page({
           subtotal: first ? first.price * this.data.quantity : 0,
           loading: false
         })
+        // cloud:// fileID 转 HTTPS 临时链接
+        this.convertImages(rawImages)
       } else {
         wx.showToast({ title: res.msg || '加载失败', icon: 'none' })
         this.setData({ loading: false })
       }
     } catch (err) {
+      console.error('详情页加载失败：', err)
       wx.showToast({ title: '网络异常', icon: 'none' })
       this.setData({ loading: false })
     }
+  },
+
+  // 将 cloud:// fileID 转为可显示的 HTTPS 临时链接
+  convertImages(images) {
+    const cloudIds = (images || []).filter(url => url && url.startsWith('cloud://'))
+    if (cloudIds.length === 0) return
+    wx.cloud.getTempFileURL({
+      fileList: cloudIds,
+      success: res => {
+        const urlMap = {}
+        res.fileList.forEach(f => {
+          if (f.tempFileURL) urlMap[f.fileID] = f.tempFileURL
+        })
+        const converted = images.map(url => urlMap[url] || url)
+        this.setData({ images: converted })
+      },
+      fail: err => {
+        console.error('详情页图片转换失败：', err)
+      }
+    })
   },
 
   // 选择规格，价格联动

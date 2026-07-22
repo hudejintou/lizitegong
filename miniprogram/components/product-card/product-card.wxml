@@ -1,0 +1,10 @@
+<view class="card" bindtap="onCardTap">
+  <view class="card-image-wrap">
+    <image wx:if="{{hasImage}}" class="card-image" src="{{cover}}" mode="aspectFill" lazy-load />
+    <view wx:else class="card-image placeholder">暂无图片</view>
+  </view>
+  <view class="card-body">
+    <view class="card-name">{{product.name}}</view>
+    <view class="card-price price">{{priceText}}</view>
+  </view>
+</view>

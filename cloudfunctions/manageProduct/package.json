@@ -1,0 +1,9 @@
+{
+  "name": "manageProduct",
+  "version": "1.0.0",
+  "description": "店主商品增删改（含权限校验）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

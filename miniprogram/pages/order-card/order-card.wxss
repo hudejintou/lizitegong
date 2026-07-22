@@ -2,10 +2,62 @@
   min-height: 100vh;
   background-color: var(--color-bg);
   padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.placeholder {
+
+.loading {
+  padding-top: 200rpx;
   color: #999999;
   font-size: 28rpx;
+}
+
+.preview {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.preview-image {
+  width: 600rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 离屏画布：移出可视区域，仅用于绘制导出 */
+.order-canvas {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 600px;
+  height: 800px;
+}
+
+.actions {
+  margin-top: 48rpx;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-save,
+.btn-copy {
+  flex: 1;
+  max-width: 280rpx;
   text-align: center;
-  margin-top: 200rpx;
+  padding: 22rpx 0;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  margin: 0 12rpx;
+}
+
+.btn-save {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-copy {
+  border: 2rpx solid var(--color-primary);
+  color: var(--color-primary);
 }
