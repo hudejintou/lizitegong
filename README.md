@@ -45,12 +45,13 @@
 
 ## 截图预览
 
-> 截图待补充，将展示：首页商品橱窗、商品详情、本地清单、下单结果、店主后台等界面。
+| 首页商品橱窗 | 商品详情 |
+|---|---|
+| ![首页商品橱窗](docs/screenshots/home.png) | ![商品详情](docs/screenshots/detail.png) |
 
-![首页商品橱窗](docs/screenshots/home.png)
-![商品详情](docs/screenshots/detail.png)
-![本地清单与下单](docs/screenshots/cart.png)
-![店主后台](docs/screenshots/admin.png)
+| 选品清单 | 订单卡片 |
+|---|---|
+| ![选品清单](docs/screenshots/cart.png) | ![订单卡片](docs/screenshots/order-card.png) |
 
 ## 技术架构
 
