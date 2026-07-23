@@ -1,16 +1,38 @@
-# 栗子特供 · 微信小程序
+# 栗子特供 · 微信云开发电商小程序模板
 
-> 一个基于 **微信云开发** 的原生小程序示例项目，用于特产（栗子）商品的展示、下单与店主管理。无需自建服务器，前后端一体化。
+> 一个基于 **微信云开发（Cloud Base）** 的微信**原生**小程序电商模板：商品展示、分类筛选、下单、店主后台一体化，**无需自建服务器**，开箱即用，可快速改造成任意品类的线上小店。
 
-[English](#english) ｜ 中文
+[![License](https://img.shields.io/github/license/hudejintou/lizitegong)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/hudejintou/lizitegong)](https://github.com/hudejintou/lizitegong/stargazers)
+[![Forks](https://img.shields.io/github/forks/hudejintou/lizitegong)](https://github.com/hudejintou/lizitegong/network)
+[![Platform](https://img.shields.io/badge/Platform-微信小程序-brightgreen)](https://developers.weixin.qq.com/miniprogram/dev/framework/)
+[![Backend](https://img.shields.io/badge/Backend-微信云开发-blue)](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/)
+
+[中文](#中文) ｜ [English](#english)
 
 ---
 
-## 项目简介
+## 这是什么（项目定位）
 
-「栗子特供」是一个 **微信原生小程序**（不使用 Taro / uni-app 等框架），后端采用 **微信云开发**（云数据库 + 云函数）。它演示了一个轻量电商小程序的核心闭环：商品橱窗浏览 → 分类筛选 → 商品详情 → 本地清单（购物车）→ 下单 → 店主后台管理。
+这是一个 **B2C 轻量电商小程序模板**，采用微信原生开发（**不依赖 Taro / uni-app 等框架**），后端直接使用**微信云开发**（云数据库 + 云函数）。它演示了一个小店线上化的完整闭环：
 
-本项目适合作为 **微信云开发入门 / 小程序前后端一体开发** 的学习示例。
+> 商品橱窗浏览 → 分类筛选 → 商品详情 → 本地清单（购物车） → 下单 → 店主后台管理
+
+项目代码简洁、注释清晰，既是**可运行的成品**，也是**学习微信云开发 / 小程序前后端一体开发**的入门示例。
+
+## 适用场景 / 可复用领域
+
+虽然示例店是「栗子特供」，但模板本身与品类无关，可复用于任何「**展示商品 + 收订 / 下单**」的场景，例如：
+
+- 🥬 **农特产 / 生鲜果蔬**线上店
+- 🍰 **零食 / 烘焙 / 饮品**小铺
+- 🎨 **手作 / 文创 / 周边**贩售
+- 🏘 **社区团购 / 邻里拼团**
+- 🍜 **餐饮菜单点单 / 预订**
+- 🏫 **校园 / 企业内部**物资采购
+- 🏷 **品牌样品展示、活动物料预订**
+
+只需替换 `products` 集合中的商品数据与店铺 `config`，即可上线一个属于你自己的小程序。
 
 ## 功能特性
 
@@ -20,6 +42,15 @@
 - 📦 **下单**：云函数后端重新核算金额，生成订单号，写入 `orders` 集合
 - 👤 **我的 / 店铺微信**：读取 `config` 集合展示店主联系方式
 - 🛠 **店主后台**：商品增删改，权限基于 `admins` 集合中的 OPENID 白名单
+
+## 截图预览
+
+> 截图待补充，将展示：首页商品橱窗、商品详情、本地清单、下单结果、店主后台等界面。
+
+![首页商品橱窗](docs/screenshots/home.png)
+![商品详情](docs/screenshots/detail.png)
+![本地清单与下单](docs/screenshots/cart.png)
+![店主后台](docs/screenshots/admin.png)
 
 ## 技术架构
 
@@ -82,7 +113,9 @@ lizi/
 
 ## English
 
-**Lizi Tegong** is a WeChat **native** mini program (no Taro/uni-app) backed by **WeChat Cloud Base** (cloud database + cloud functions). It demonstrates a lightweight e-commerce flow for a specialty (chestnut) shop: product showcase with category filtering, product detail, local cart, order placement, and an owner admin panel — all without a self-hosted server.
+**Lizi Tegong** is a WeChat **native** mini program (no Taro/uni-app) backed by **WeChat Cloud Base** (cloud database + cloud functions). It is a lightweight, reusable **e-commerce mini program template**: product showcase with category filtering, product detail, local cart, order placement, and an owner admin panel — all without a self-hosted server.
+
+Swap the data in the `products` / `config` collections to turn it into a shop for any category (farm produce, snacks, handmade goods, community group-buy, F&B ordering, internal procurement, etc.).
 
 ### Highlights
 - Native mini program frontend under `miniprogram/`
