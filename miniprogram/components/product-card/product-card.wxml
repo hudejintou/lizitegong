@@ -1,6 +1,6 @@
 <view class="card" bindtap="onCardTap">
   <view class="card-image-wrap">
-    <image wx:if="{{hasImage}}" class="card-image" src="{{cover}}" mode="aspectFill" lazy-load />
+    <image wx:if="{{hasImage}}" class="card-image" src="{{cover}}" mode="aspectFill" lazy-load binderror="onImageError" />
     <view wx:else class="card-image placeholder">暂无图片</view>
   </view>
   <view class="card-body">

@@ -1,4 +1,5 @@
 const { call } = require('../../../utils/cloud')
+const { resolveProductImage } = require('../../../utils/image-map')
 
 Page({
   data: {
@@ -49,8 +50,18 @@ Page({
         .limit(100)
         .get()
       const products = res.data
-      this.setData({ products })
-      // cloud:// fileID 转 HTTPS 临时链接
+
+      // 先应用本地图片兜底
+      const withLocalImages = products.map(p => {
+        const resolved = resolveProductImage(p.name, p.images)
+        return {
+          ...p,
+          images: resolved.hasImage ? [resolved.cover] : []
+        }
+      })
+      this.setData({ products: withLocalImages })
+
+      // 再尝试转换云存储图片为更高清的临时链接
       this.convertProductImages(products)
     } catch (e) {
       this.setData({ products: [] })
@@ -75,10 +86,12 @@ Page({
         res.fileList.forEach(f => {
           if (f.tempFileURL) urlMap[f.fileID] = f.tempFileURL
         })
-        const converted = products.map(p => ({
-          ...p,
-          images: (p.images || []).map(url => urlMap[url] || url)
-        }))
+        // 只更新成功转换的图片，保持本地兜底图不变
+        const currentProducts = this.data.products
+        const converted = currentProducts.map(p => {
+          const newImages = (p.images || []).map(url => urlMap[url] || url)
+          return { ...p, images: newImages }
+        })
         this.setData({ products: converted })
       },
       fail: err => {

@@ -1,5 +1,6 @@
 const { call } = require('../../utils/cloud')
 const { addItem } = require('../../utils/cart-storage')
+const { resolveProductImage, isValidImageUrl } = require('../../utils/image-map')
 
 Page({
   data: {
@@ -37,9 +38,15 @@ Page({
         const specs = product.specs || []
         const first = specs[0] || null
         const rawImages = product.images || []
+
+        // 解析图片：优先使用本地兜底图
+        const resolved = resolveProductImage(product.name, rawImages)
+        const displayImages = resolved.hasImage ? [resolved.cover] : []
+        console.log('[product-detail] 图片解析结果:', { name: product.name, source: resolved.source, images: displayImages })
+
         this.setData({
           product,
-          images: rawImages,
+          images: displayImages,
           activeSpecIndex: specs.length > 0 ? 0 : -1,
           specName: first ? first.specName : '',
           price: first ? first.price : 0,
@@ -47,8 +54,10 @@ Page({
           subtotal: first ? first.price * this.data.quantity : 0,
           loading: false
         })
-        // cloud:// fileID 转 HTTPS 临时链接
-        this.convertImages(rawImages)
+        // 如果是云存储图片，继续转换获取更高清的临时链接
+        if (resolved.source === 'cloud') {
+          this.convertImages(rawImages)
+        }
       } else {
         wx.showToast({ title: res.msg || '加载失败', icon: 'none' })
         this.setData({ loading: false })
@@ -60,23 +69,70 @@ Page({
     }
   },
 
-  // 将 cloud:// fileID 转为可显示的 HTTPS 临时链接
+  // 将 cloud:// fileID 转为 HTTPS 临时链接；失败时回退到 downloadFile 下载到本地
   convertImages(images) {
-    const cloudIds = (images || []).filter(url => url && url.startsWith('cloud://'))
+    const all = images || []
+    const cloudIds = all.filter(url => url && url.startsWith('cloud://'))
     if (cloudIds.length === 0) return
+
+    // 分离 http(s) 和 cloud://
+    const networkUrls = all.filter(url => url && /^https?:\/\//.test(url))
+
     wx.cloud.getTempFileURL({
       fileList: cloudIds,
       success: res => {
+        console.log('[product-detail] getTempFileURL 响应:', JSON.stringify(res))
         const urlMap = {}
+        let allOk = true
         res.fileList.forEach(f => {
-          if (f.tempFileURL) urlMap[f.fileID] = f.tempFileURL
+          if (f.tempFileURL) {
+            urlMap[f.fileID] = f.tempFileURL
+          } else {
+            allOk = false
+            console.warn('[product-detail] fileID 转换失败:', f.fileID, f.errMsg)
+          }
         })
-        const converted = images.map(url => urlMap[url] || url)
-        this.setData({ images: converted })
+
+        if (allOk) {
+          const converted = all.map(url => urlMap[url] || url)
+          this.setData({ images: converted })
+        } else {
+          // 有图片转换失败，逐个用 downloadFile 兜底
+          this.downloadImagesFallback(cloudIds, all, networkUrls)
+        }
       },
       fail: err => {
-        console.error('详情页图片转换失败：', err)
+        console.error('[product-detail] getTempFileURL 失败:', JSON.stringify(err))
+        this.downloadImagesFallback(cloudIds, all, networkUrls)
       }
+    })
+  },
+
+  // downloadFile 兜底：把每张云图下到本地临时路径
+  downloadImagesFallback(cloudIds, all, networkUrls) {
+    let done = 0
+    const pathMap = {}
+    cloudIds.forEach(fileID => {
+      wx.cloud.downloadFile({
+        fileID: fileID,
+        success: res => {
+          if (res.tempFilePath) pathMap[fileID] = res.tempFilePath
+          done++
+          if (done === cloudIds.length) {
+            const converted = all.map(url => pathMap[url] || url)
+            this.setData({ images: converted })
+            console.log('[product-detail] downloadFile 兜底完成')
+          }
+        },
+        fail: err => {
+          console.error('[product-detail] downloadFile 失败:', fileID, JSON.stringify(err))
+          done++
+          if (done === cloudIds.length) {
+            const converted = all.map(url => pathMap[url] || url)
+            this.setData({ images: converted })
+          }
+        }
+      })
     })
   },
 
