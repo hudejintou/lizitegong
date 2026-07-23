@@ -8,6 +8,13 @@ App({
       env: 'cloud1-d5g2d4lavcc25421e',
       traceUser: true
     })
+    
+    // 启动时获取并打印 openid
+    wx.cloud.callFunction({ name: 'checkAdmin' }).then(res => {
+      console.log('========== 你的 OpenID ==========')
+      console.log(res.result.openid)
+      console.log('==================================')
+    })
   },
   globalData: {
     userInfo: null
